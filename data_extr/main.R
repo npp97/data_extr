@@ -1,24 +1,16 @@
 library(ncdf4);
 library(raster);
 library(chron);
-
-days_since190011
-
-time0 <- 480;
-res_x0 <- 0.5;
-res_y0 <- 0.5;
-
-grid_lcx0 <- -180;
-grid_lcy0 <- 90;
-
-#test zone
-gx = 14.3
-gy = 128.9
+library(readxl);
 
 path0 <- "d://cru.ts//nc"
-setwd(path0)
-
+setwd(path0);
 flst <- dir()
+
+path1 <- "d://cru.ts//expdata"
+fn_to_read <- read_excel(paste(path1, "exp"), sheet = 1);
+lo_to_ex<-data.frame(lat=,lon=,year_search=)
+
 ncdata <- nc_open(flst[1]);
 data <- ncvar_get(ncdata);
 
