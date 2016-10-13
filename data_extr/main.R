@@ -10,6 +10,8 @@ flst <- dir();
 path1 <- "d://cru.ts//";
 lo_to_ex <- read.csv(paste(path1, "meta_info.csv", sep = ''),colClasses = c("character","numeric","numeric","numeric"));
 
+lo_to_ex$year <- lo_to_ex$year - 2;
+
 i3 <- which((!is.na(lo_to_ex$lat))& (lo_to_ex$year<=2014));
 lo_to_ex2 <- lo_to_ex[i3,];
 
@@ -46,4 +48,17 @@ for (ijk in 1:length(flst)) {
 
 }
 
-write.csv(outp,'outp.csv')
+write.csv(outp, 'outp.csv')
+
+
+rnoise <- rnorm(1000) * 10
+rnoise<-sort(rnoise)*rnoise
+r1 <- rnoise
+r1[] <- 0
+
+po <- abs(floor(rnorm(6) * 500))
+r1[po] <- rnorm(po)*max(rnoise)
+
+plot(rnoise[1:510],type='l',xlab='',axes=F,ylab='',col='grey')
+points(r1, col = 2, type = 'l')
+box()
