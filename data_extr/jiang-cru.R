@@ -94,4 +94,28 @@ library(doBy)
 s_intl <- summaryBy(tem_obs + tem_cru + pre_cru + pre_obs ~ years + months, FUN = mean, na.rm = T, data = all[ii_intl,])
 s_nintl <- summaryBy(tem_obs + tem_cru + pre_cru + pre_obs ~ years + months, FUN = mean, na.rm = T, data = all[ii_nintl,])
 
-ts.plot(s_intl[,2:3])
+
+#figures
+res=300
+win.graph(width = 7, height = 4)
+tiff('comp_CRU_obs.tif', width = 7 * res, height = 4 * res, compression='lzw',res=res)
+par(mfrow = c(1, 2))
+plot(all$tem_cru ~ all$tem_obs, axes = F, xlab = '', ylab = '', cex = 0.75,pch=19)
+points(all$tem_cru[ii_intl] ~ all$tem_obs[ii_intl], pch = '+', col = 2, cex = 0.75)
+axis(1)
+axis(2)
+title(xlab='Ta_CRU.TS(degree)',ylab='Ta_obs(degree)',line=2.5)
+grid();
+box();
+abline(a = 0, b = 1, lwd = 3, col = 'grey', lty = 2)
+
+plot(all$pre_cru ~ all$pre_obs, axes = F,xlab='',ylab='',cex=0.75,pch=19)
+points(all$pre_cru[ii_intl] ~ all$pre_obs[ii_intl], pch = '+', col = 2,cex=0.75)
+axis(1)
+axis(2)
+title(xlab = 'prep_CRU.TS(mm)', ylab = 'prep_obs(mm)',line=2.5)
+grid();
+box()
+abline(a = 0, b = 1, lwd = 3, col = 'grey', lty = 2)
+
+dev.off()
